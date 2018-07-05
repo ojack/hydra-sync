@@ -21,7 +21,7 @@ function init () {
     pb: pb,
     canvas: canvas.element,
     autoLoop: false})
-  var editor = new Editor()
+  var editor = new Editor((code) => { console.log('evaluating!!! '+ code)})
   editor.eval()
   var localStream = hydra.canvas.captureStream(25)
   pb.init(localStream, {

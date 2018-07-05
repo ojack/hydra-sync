@@ -7,7 +7,13 @@ require('codemirror/addon/selection/mark-selection')
 
 var isShowing = true
 
-var EditorClass = function () {
+var EditorClass = function (onEval) {
+  if(onEval) {
+    this.onEval = onEval
+  } else {
+    this.onEval = () => {}
+  }
+
   var self = this
   this.cm = CodeMirror.fromTextArea(document.getElementById('code'), {
     theme: 'tomorrow-night-eighties',
@@ -87,6 +93,7 @@ EditorClass.prototype.eval = function (arg) {
   }
   if(!isError){
     self.log(jsString)
+    self.onEval(jsString)
   }
 }
 

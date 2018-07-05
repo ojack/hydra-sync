@@ -17,6 +17,7 @@ var PBLive = function () {
 // inherits from PatchBay module
 inherits(PBLive, PatchBay)
 
+// to do: assign default values to variables es6 style
 PBLive.prototype.init = function (stream, opts) {
   this.settings = {
     server: opts.server || 'https://patch-bay.glitch.me/',
@@ -24,8 +25,10 @@ PBLive.prototype.init = function (stream, opts) {
     stream: stream
   }
 
-  this.makeGlobal = opts.makeGlobal || true
-  this.setPageTitle = opts.setTitle || true
+  this.makeGlobal = true
+  //.makeGlobal ? opts.makeGlobal || true
+  this.setPageTitle = false
+  //opts.setTitle ? opts.setTitle || true
 
   if (this.session.id) this.settings.id = this.session.id
 

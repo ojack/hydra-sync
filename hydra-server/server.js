@@ -13,8 +13,10 @@ var httpsServer = https.createServer(credentials, app)
 
 var io = require('socket.io')(httpsServer)
 
-app.get('/bundle.js', browserify(path.join(__dirname, '/app/index.js')))
+app.get('/bundle.js', browserify(path.join(__dirname, '/app/coder.js')))
 app.get('/camera-bundle.js', browserify(path.join(__dirname, '/app/camera.js')))
+app.get('/bundle-viewer.js', browserify(path.join(__dirname, '/app/viewer.js')))
+
 // crear un servidor en puerto 8000
 httpsServer.listen(8000, function () {
   // imprimir la direccion ip en la consola
@@ -69,6 +71,10 @@ io.on('connection', function (socket) {
     socket.to(thisRoom).emit('broadcast', data)
   })
 
+  socket.on('eval code', function(data){
+    console.log('evaling code')
+    socket.to(thisRoom).emit('eval code', data)
+  })
   // pass message from one peer to another
   socket.on('message', function (data) {
     var client = io.sockets.connected[socketFromUser[data.id]]
