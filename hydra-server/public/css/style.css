@@ -69,8 +69,13 @@ canvas {
   left: 0px;
   font-family: monospace;
   color: #fff;
+  font-size: 24px;
 }
 
+.console > span {
+  width: 100%;
+}
 .log-error {
   color: #f00;
+  width: 100%;
 }

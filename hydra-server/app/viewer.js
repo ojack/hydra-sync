@@ -34,12 +34,19 @@ function init () {
     //console.log("GOT CODE", data)
     editor.eval(data)
   })
-
+  osc(6, 0.02, 1.2).rotate(0.91).mult(osc(4, -0.04)).modulateScale(osc(3).rotate(0, 0.01)).color(1.38,0.4,1.0).out(o0)
+  
   var engine = loop(function(dt) {
     // delta time in milliseconds
     hydra.tick(dt)
   //  audio.tick()
 }).start()
+  
+  var l = document.getElementsByClassName('CodeMirror-scroll')[0]
+      
+  l.style.display = 'none'
+  
+  editor.log("visuals live coded by Olivia for ALGORAVE sheffield. Come back July 6th at midnight BST / 6pm bogotá")
 }
 
 window.onload = init

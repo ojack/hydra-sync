@@ -2,14 +2,30 @@ const fs = require('fs')
 const express = require('express')
 const app = express()
 const browserify = require('browserify-middleware')
-const https = require('https')
+//const https = require('https')
+const http = require('http')
 const path = require('path')
 
-var privateKey = fs.readFileSync(path.join(__dirname, '/certs/key.pem'), 'utf8')
-var certificate = fs.readFileSync(path.join(__dirname, '/certs/certificate.pem'), 'utf8')
+//var privateKey = fs.readFileSync(path.join(__dirname, '/certs/key.pem'), 'utf8')
+//var certificate = fs.readFileSync(path.join(__dirname, '/certs/certificate.pem'), 'utf8')
 
-var credentials = {key: privateKey, cert: certificate}
-var httpsServer = https.createServer(credentials, app)
+//var credentials = {key: privateKey, cert: certificate}
+//var httpsServer = https.createServer(credentials, app)
+
+/*function checkHttps(req, res, next){
+  // protocol check, if http, redirect to https
+  
+  if(req.get('X-Forwarded-Proto').indexOf("https")!=-1){
+    console.log("https, yo")
+    return next()
+  } else {
+    console.log("just http")
+    res.redirect('https://' + req.hostname + req.url);
+  }
+}
+
+app.all('*', checkHttps)*/
+var httpsServer = http.createServer(app)
 
 var io = require('socket.io')(httpsServer)
 
